@@ -40,6 +40,7 @@ class AttributesValCollector(object):
         try:
             with open("%s.pkl" % db_name, "rb") as f:
                 self.final_dict = pickle.load(f)
+            raise IOError
         
         except IOError:
 
