@@ -5,6 +5,8 @@ import numpy as np
 
 class Database(object):
     def __init__(self, file_path, attributes, custome):
+
+        print(file_path)
         
         conn = sqlite3.connect(file_path)
         cur = conn.cursor()

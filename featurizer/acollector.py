@@ -2,7 +2,7 @@ from multiprocessing import Pool
 import sys
 import sqlite3
 from collections import defaultdict
-sys.path.append("/home/paulluh/cosmos_ssd_3/hera-db-lib")
+sys.path.append("/luh/hera-db-lib")
 from tools import db_file_path_iterator
 from batch_process import run_on_all_files_retrieve
 import pickle
