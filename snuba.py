@@ -23,6 +23,13 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--num_example", type=int)
+parser.add_argument("--dataset")
+args = parser.parse_args()
+
 with open("test_feature.pkl", "rb") as f:
     primitives = pickle.load(f)
 
@@ -46,7 +53,7 @@ hg = HeuristicGenerator(primitives, val_primitive,
                         val_ground, ground, 
                         b=0.5)
 
-for _ in range(0, 3):
+for _ in range(0, 10):
     hg.run_synthesizer(max_cardinality=1, idx=idx, keep=3, model='dt')
     hg.run_verifier()
     print(hg.evaluate())
@@ -73,7 +80,8 @@ prec, recall, _, _ = precision_recall_fscore_support(ml_val_ground, bin_labels[0
 
 f1 = 2*(prec * recall) / (prec + recall)
 
-print("%f,%f,%f" % (prec, recall, f1))
+with open("results_log.csv", "a") as f:
+    f.write("\n%s,%f,%f,%f,%d" % (args.dataset, prec, recall, f1, args.num_example))
 
     # print(idx)
 

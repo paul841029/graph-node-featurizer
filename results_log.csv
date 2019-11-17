@@ -1,0 +1,11 @@
+dataset_name,precision,recall,f1,num_example
+presdient_mix,0.019355,1.000000,0.037975,1
+presdient_mix,0.000000,0.000000,nan,1
+presdient_mix,0.009524,1.000000,0.018868,1
+presdient_mix,0.019355,1.000000,0.037975,1
+presdient_mix,1.000000,1.000000,1.000000,2
+
+presdient_mix,0.009524,1.000000,0.018868,2
+presdient_mix,0.009524,1.000000,0.018868,2
+presdient_mix,0.009524,1.000000,0.018868,2
+presdient_mix,0.009524,1.000000,0.018868,1
