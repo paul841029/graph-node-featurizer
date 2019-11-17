@@ -28,6 +28,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--num_example", type=int)
 parser.add_argument("--dataset")
+parser.add_argument("--gt_level")
 args = parser.parse_args()
 
 with open("test_feature.pkl", "rb") as f:
@@ -81,7 +82,7 @@ prec, recall, _, _ = precision_recall_fscore_support(ml_val_ground, bin_labels[0
 f1 = 2*(prec * recall) / (prec + recall)
 
 with open("results_log.csv", "a") as f:
-    f.write("\n%s,%f,%f,%f,%d" % (args.dataset, prec, recall, f1, args.num_example))
+    f.write("\n%s,%f,%f,%f,%s,%d" % (args.dataset, prec, recall, f1, args.gt_level,args.num_example))
 
     # print(idx)
 

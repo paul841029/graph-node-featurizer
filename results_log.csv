@@ -1,11 +1,105 @@
-dataset_name,precision,recall,f1,num_example
-presdient_mix,0.019355,1.000000,0.037975,1
-presdient_mix,0.000000,0.000000,nan,1
-presdient_mix,0.009524,1.000000,0.018868,1
-presdient_mix,0.019355,1.000000,0.037975,1
-presdient_mix,1.000000,1.000000,1.000000,2
-
-presdient_mix,0.009524,1.000000,0.018868,2
-presdient_mix,0.009524,1.000000,0.018868,2
-presdient_mix,0.009524,1.000000,0.018868,2
-presdient_mix,0.009524,1.000000,0.018868,1
+dataset,prec,recall,f1,gt-level,num-pos-exp
+political_table,0.006776,1.000000,0.013462,cell,1
+political_table,0.021341,1.000000,0.041791,cell,1
+political_table,0.021341,1.000000,0.041791,cell,1
+political_table,0.437500,1.000000,0.608696,cell,1
+political_table,0.006776,1.000000,0.013462,cell,1
+political_table,0.875000,1.000000,0.933333,cell,3
+political_table,0.875000,1.000000,0.933333,cell,3
+political_table,0.875000,1.000000,0.933333,cell,3
+political_table,0.437500,1.000000,0.608696,cell,3
+political_table,0.875000,1.000000,0.933333,cell,3
+political_table,0.875000,1.000000,0.933333,cell,5
+political_table,0.875000,1.000000,0.933333,cell,5
+political_table,0.875000,1.000000,0.933333,cell,5
+political_table,0.875000,1.000000,0.933333,cell,5
+political_table,0.437500,1.000000,0.608696,cell,5
+political_table,0.875000,1.000000,0.933333,cell,10
+political_table,0.875000,1.000000,0.933333,cell,10
+political_table,0.437500,1.000000,0.608696,cell,10
+political_table,0.875000,1.000000,0.933333,cell,10
+political_table,0.437500,1.000000,0.608696,cell,10
+political_table,0.875000,1.000000,0.933333,cell,15
+political_table,0.437500,1.000000,0.608696,cell,15
+political_table,0.875000,1.000000,0.933333,cell,15
+political_table,0.437500,1.000000,0.608696,cell,15
+political_table,0.875000,1.000000,0.933333,cell,15
+Exceed positive examples in train set. Truncate to 16
+political_table,0.021341,1.000000,0.041791,cell,20
+Exceed positive examples in train set. Truncate to 16
+political_table,0.875000,1.000000,0.933333,cell,20
+Exceed positive examples in train set. Truncate to 16
+political_table,0.437500,1.000000,0.608696,cell,20
+Exceed positive examples in train set. Truncate to 16
+political_table,0.875000,1.000000,0.933333,cell,20
+Exceed positive examples in train set. Truncate to 16
+political_table,0.875000,1.000000,0.933333,cell,20
+president_mix,0.007449,1.000000,0.014787,cell,1
+president_mix,0.001610,1.000000,0.003215,cell,1
+president_mix,0.007449,1.000000,0.014787,cell,1
+president_mix,0.000000,0.000000,nan,cell,1
+president_mix,0.015190,1.000000,0.029925,cell,1
+president_mix,0.007449,1.000000,0.014787,cell,3
+president_mix,0.007449,1.000000,0.014787,cell,3
+president_mix,0.007449,1.000000,0.014787,cell,3
+president_mix,0.007449,1.000000,0.014787,cell,3
+president_mix,0.007449,1.000000,0.014787,cell,3
+president_mix,0.007449,1.000000,0.014787,cell,5
+president_mix,0.007449,1.000000,0.014787,cell,5
+president_mix,0.007449,1.000000,0.014787,cell,5
+president_mix,0.001610,1.000000,0.003215,cell,5
+president_mix,0.007449,1.000000,0.014787,cell,5
+president_mix,0.007449,1.000000,0.014787,cell,10
+president_mix,0.007449,1.000000,0.014787,cell,10
+president_mix,0.007449,1.000000,0.014787,cell,10
+president_mix,0.007449,1.000000,0.014787,cell,10
+president_mix,0.015190,1.000000,0.029925,cell,10
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,15
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,15
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.015190,1.000000,0.029925,cell,15
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,15
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,15
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,20
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,20
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,20
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,20
+Exceed positive examples in train set. Truncate to 14
+president_mix,0.007449,1.000000,0.014787,cell,20
+transistor,0.032099,0.722222,0.061466,cell,1
+transistor,0.000667,1.000000,0.001333,cell,1
+transistor,0.010309,0.611111,0.020276,cell,1
+transistor,0.003490,1.000000,0.006957,cell,1
+transistor,0.032099,0.722222,0.061466,cell,1
+transistor,0.003490,1.000000,0.006957,cell,3
+transistor,0.003490,1.000000,0.006957,cell,3
+transistor,0.003490,1.000000,0.006957,cell,3
+transistor,0.041763,1.000000,0.080178,cell,5
+transistor,0.213115,0.722222,0.329114,cell,5
+transistor,0.003490,1.000000,0.006957,cell,5
+transistor,0.041763,1.000000,0.080178,cell,10
+transistor,0.003490,1.000000,0.006957,cell,10
+transistor,0.003490,1.000000,0.006957,cell,10
+transistor,0.003490,1.000000,0.006957,cell,10
+transistor,0.003490,1.000000,0.006957,cell,10
+transistor,0.003490,1.000000,0.006957,cell,15
+transistor,0.003490,1.000000,0.006957,cell,15
+transistor,0.003490,1.000000,0.006957,cell,15
+transistor,0.003490,1.000000,0.006957,cell,15
+transistor,0.003490,1.000000,0.006957,cell,15
+transistor,0.003490,1.000000,0.006957,cell,20
+transistor,0.041763,1.000000,0.080178,cell,20
+transistor,0.003490,1.000000,0.006957,cell,20
+transistor,0.003490,1.000000,0.006957,cell,20
+transistor,0.000670,1.000000,0.001339,span,1
+transistor,0.000000,0.000000,nan,span,1
+transistor,0.000000,0.000000,nan,span,1
+transistor,0.000000,0.000000,nan,span,1

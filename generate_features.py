@@ -95,6 +95,13 @@ ground = np.array(ground)
 
 num_examples = args.example
 
+if (num_examples > len(np.where(ground == 1)[0])):
+    num_examples = len(np.where(ground == 1)[0])
+
+    with open("results_log.csv", "a") as f:
+        f.write("\nExceed positive examples in train set. Truncate to %d" % num_examples)
+
+
 pos = sample(np.where(ground == 1)[0], num_examples)
 neg = sample(np.where(ground == -1)[0], num_examples)
 
