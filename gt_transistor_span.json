@@ -1,0 +1,39 @@
+[
+    {
+        "file": "/data/RECTS01158-1.db",
+        "example":[178423]
+    },
+    {
+        "file": "/data/PNJIS01593-1.db",
+        "example":[196252]
+    },
+    {
+        "file": "/data/RECTS00705-1.db",
+        "example":[206475]
+    },
+    {
+        "file": "/data/PJECS00521-1.db",
+        "example":[237979]
+    },
+    {
+        "file": "/data/MMMCS17742-1.db",
+        "example": [384051]
+    },
+    {
+        "file": "/data/MCCCS09540-1.db",
+        "example":[398333]
+    },
+    {
+        "file": "/data/MCCCS09741-1.db",
+        "example": [408713]
+    },
+    {
+       "file": "/data/MicroCommercialCo_TIP29ABP.db",
+       "example": [413992] 
+    },
+    {
+        "file": "/data/CentralSemiconductorCorp_CMPT5401ETR.db",
+        "example": [462319]
+    }
+]
+

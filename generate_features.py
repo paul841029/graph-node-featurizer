@@ -13,7 +13,6 @@ from random import sample
 import json
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--example", type=int)
 parser.add_argument("--dataset")
 parser.add_argument("--gt")
 args = parser.parse_args()
@@ -92,36 +91,21 @@ for i in node_id:
         ground.append(-1)
 ground = np.array(ground)
 
+try:
+    with open("train_feature_%s.pkl" % args.dataset, "rb") as f:
+        pass
+except IOError:
+    with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
+        print("size of train:", primitives.shape)
+        pickle.dump(primitives, f)    
 
-num_examples = args.example
+try:
+    with open("train_label_%s.pkl" % args.dataset, "rb") as f:
+        pass
+except IOError:
+    with open("train_label_%s.pkl" % args.dataset, "wb") as f:
+        pickle.dump(ground, f) 
 
-if (num_examples > len(np.where(ground == 1)[0])):
-    num_examples = len(np.where(ground == 1)[0])
-
-    with open("results_log.csv", "a") as f:
-        f.write("\nExceed positive examples in train set. Truncate to %d" % num_examples)
-
-
-pos = sample(np.where(ground == 1)[0], num_examples)
-neg = sample(np.where(ground == -1)[0], num_examples)
-
-
-cropped_primitives = np.zeros(( 2*num_examples , primitives.shape[1]))
-ground_truth = np.zeros((2*num_examples,))
-
-for idx, i in enumerate(pos[:num_examples]):
-    cropped_primitives[idx, :] = primitives[i, :]
-    ground_truth[idx] = ground[i]
-
-for idx, i in enumerate(neg[:num_examples]):
-    cropped_primitives[idx+num_examples, :] = primitives[i, :]
-    ground_truth[idx+num_examples] = ground[i]
-
-with open("train_feature.pkl", "wb") as f:
-    print("size of train:", cropped_primitives.shape)
-    pickle.dump(cropped_primitives, f)
-with open("train_label.pkl", "wb") as f:
-    pickle.dump(ground_truth, f)
 
 # assert False
 
@@ -186,72 +170,76 @@ except IOError:
     with open("test_feature_%s.pkl" % args.dataset, "wb") as f:
         print("size of test:", primitives.shape)
         pickle.dump(primitives, f)    
-
-with open("test_label.pkl", "wb") as f:
-    pickle.dump(ground, f)
-
-
-
-
-op_folder = "/luh/synthesis_data_snuba/%s/example/total/validation" % args.dataset
-start = 0
-end = 0
-number_nodes = total_node(op_folder)
-primitives = None
-node_id = np.zeros((number_nodes, ))
-
 try:
-    with open("val_primitive_%s.pkl" % args.dataset) as f:
-        primitives = pickle.load(f)
-    with open("val_primitive_%s_node.pkl" % args.dataset) as f:
-        node_id = pickle.load(f)
-
-except IOError:
-    for idx, f in enumerate(os.listdir(op_folder)):
-
-        path = os.path.join(op_folder, f)
-        
-        d = Database(path, attributes, custume)
-        prim, i = d.generate_primitive_matrix(attributes_dict)
-        
-        if primitives is None:
-            primitives = np.zeros((number_nodes, prim.shape[1]))
-            print(primitives.shape)
-        
-        end += prim.shape[0]
-        
-        primitives[start:end, :] = prim
-        node_id[start:end] = i
-
-        start = end
-    
-    with open("val_primitive_%s.pkl" % args.dataset, 'wb') as f:
-        pickle.dump(primitives, f)
-    with open("val_primitive_%s_node.pkl" % args.dataset, 'wb') as f:
-        pickle.dump(node_id, f)
-
-gt_id_val = []
-
-for s in gt_id:
-    for i in s['example']:
-        gt_id_val.append(i)
-
-gt_id_val = set(gt_id_val)
-
-ground = []
-for i in node_id:
-    if i in gt_id_val:
-        ground.append(1)
-    else:
-        ground.append(-1)
-ground = np.array(ground)
-
-try:
-    with open("val_feature_%s.pkl" % args.dataset, "rb") as f:
+    with open("test_label_%s.pkl" % args.dataset, "rb") as f:
         pass
 except IOError:
-    with open("val_feature_%s.pkl" % args.dataset, "wb") as f:
-        pickle.dump(primitives, f)
+    with open("test_label_%s.pkl" % args.dataset, "wb") as f:
+        pickle.dump(ground, f)
 
-with open("val_label.pkl", "wb") as f:
-    pickle.dump(ground, f)
+
+
+
+
+# op_folder = "/luh/synthesis_data_snuba/%s/example/total/validation" % args.dataset
+# start = 0
+# end = 0
+# number_nodes = total_node(op_folder)
+# primitives = None
+# node_id = np.zeros((number_nodes, ))
+
+# try:
+#     with open("val_primitive_%s.pkl" % args.dataset) as f:
+#         primitives = pickle.load(f)
+#     with open("val_primitive_%s_node.pkl" % args.dataset) as f:
+#         node_id = pickle.load(f)
+
+# except IOError:
+#     for idx, f in enumerate(os.listdir(op_folder)):
+
+#         path = os.path.join(op_folder, f)
+        
+#         d = Database(path, attributes, custume)
+#         prim, i = d.generate_primitive_matrix(attributes_dict)
+        
+#         if primitives is None:
+#             primitives = np.zeros((number_nodes, prim.shape[1]))
+#             print(primitives.shape)
+        
+#         end += prim.shape[0]
+        
+#         primitives[start:end, :] = prim
+#         node_id[start:end] = i
+
+#         start = end
+    
+#     with open("val_primitive_%s.pkl" % args.dataset, 'wb') as f:
+#         pickle.dump(primitives, f)
+#     with open("val_primitive_%s_node.pkl" % args.dataset, 'wb') as f:
+#         pickle.dump(node_id, f)
+
+# gt_id_val = []
+
+# for s in gt_id:
+#     for i in s['example']:
+#         gt_id_val.append(i)
+
+# gt_id_val = set(gt_id_val)
+
+# ground = []
+# for i in node_id:
+#     if i in gt_id_val:
+#         ground.append(1)
+#     else:
+#         ground.append(-1)
+# ground = np.array(ground)
+
+# try:
+#     with open("val_feature_%s.pkl" % args.dataset, "rb") as f:
+#         pass
+# except IOError:
+#     with open("val_feature_%s.pkl" % args.dataset, "wb") as f:
+#         pickle.dump(primitives, f)
+
+# with open("val_label.pkl", "wb") as f:
+#     pickle.dump(ground, f)
