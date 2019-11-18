@@ -31,7 +31,7 @@ parser.add_argument("--dataset")
 parser.add_argument("--gt_level")
 args = parser.parse_args()
 
-with open("test_feature.pkl", "rb") as f:
+with open("test_feature_%s.pkl" % args.dataset, "rb") as f:
     primitives = pickle.load(f)
 
 with open("test_label.pkl", "rb") as f:
@@ -43,7 +43,7 @@ with open("train_feature.pkl", "rb") as f:
 with open("train_label.pkl", "rb") as f:
     val_ground = pickle.load(f)
 
-with open("val_feature.pkl", "rb") as f:
+with open("val_feature_%s.pkl" % args.dataset, "rb") as f:
     ml_val_primitive = pickle.load(f)
 
 with open("val_label.pkl", "rb") as f:

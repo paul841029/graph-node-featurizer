@@ -179,10 +179,14 @@ for i in node_id:
         ground.append(-1)
 ground = np.array(ground)
 
+try:
+    with open("test_feature_%s.pkl" % args.dataset, "rb") as f:
+        pass
+except IOError:
+    with open("test_feature_%s.pkl" % args.dataset, "wb") as f:
+        print("size of test:", primitives.shape)
+        pickle.dump(primitives, f)    
 
-with open("test_feature.pkl", "wb") as f:
-    print("size of test:", primitives.shape)
-    pickle.dump(primitives, f)
 with open("test_label.pkl", "wb") as f:
     pickle.dump(ground, f)
 
@@ -226,24 +230,28 @@ except IOError:
     with open("val_primitive_%s_node.pkl" % args.dataset, 'wb') as f:
         pickle.dump(node_id, f)
 
-    gt_id_val = []
+gt_id_val = []
 
-    for s in gt_id:
-        for i in s['example']:
-            gt_id_val.append(i)
+for s in gt_id:
+    for i in s['example']:
+        gt_id_val.append(i)
 
-    gt_id_val = set(gt_id_val)
+gt_id_val = set(gt_id_val)
 
-    ground = []
-    for i in node_id:
-        if i in gt_id_val:
-            ground.append(1)
-        else:
-            ground.append(-1)
-    ground = np.array(ground)
+ground = []
+for i in node_id:
+    if i in gt_id_val:
+        ground.append(1)
+    else:
+        ground.append(-1)
+ground = np.array(ground)
 
-
-    with open("val_feature.pkl", "wb") as f:
+try:
+    with open("val_feature_%s.pkl" % args.dataset, "rb") as f:
+        pass
+except IOError:
+    with open("val_feature_%s.pkl" % args.dataset, "wb") as f:
         pickle.dump(primitives, f)
-    with open("val_label.pkl", "wb") as f:
-        pickle.dump(ground, f)
+
+with open("val_label.pkl", "wb") as f:
+    pickle.dump(ground, f)
