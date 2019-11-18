@@ -7,7 +7,7 @@
 
 
 # print(result)
-
+import time
 
 # print(np.max(primitives))
 import sys
@@ -24,6 +24,8 @@ from heuristic_generator import HeuristicGenerator
 import numpy as np
 
 import argparse
+import time
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--dataset")
@@ -48,7 +50,7 @@ with open("test_label_%s.pkl" % args.dataset, "rb") as f:
 
 # with open("val_label.pkl", "rb") as f:
 #     ml_val_ground = pickle.load(f)
-
+start_time = time.time()
 idx = None
 hg = HeuristicGenerator(test_primitive, train_primitive, 
                         train_label, train_ground=test_label, 
@@ -68,7 +70,7 @@ num_count = dict(zip(unique, counts))
 
 with open("results_log.csv", "a") as f:
     f.write(
-        "\n%s,%f,%f,%f,%d,%d,%f" % (args.dataset, prec, recall, f1, num_count[1], num_count[-1], args.threshold)
+        "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, num_count[1], num_count[-1], args.threshold, args.gt_level, time.time() - start_time)
         )
 
 # clf = RandomForestRegressor(n_estimators=10, max_depth=2,
