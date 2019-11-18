@@ -24,6 +24,10 @@ all_db_files = filter(lambda x: '.db' in x, os.listdir(args.input))
 train, test = train_test_split(all_db_files, train_size=0.2)
 test, val = train_test_split(test, test_size=0.1/0.8)
 
+print(len(train))
+print(len(test))
+print(len(val))
+
 for f in train:
     src = os.path.join(args.input, f)
     tar = os.path.join(args.train, f)

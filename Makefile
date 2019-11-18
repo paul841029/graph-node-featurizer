@@ -10,6 +10,9 @@ snuba_exp:
 
 .PHONY: split_files
 split_files:
+	rm /luh/synthesis_data_snuba/${data}/example/total/train/*.db
+	rm /luh/synthesis_data_snuba/${data}/example/total/test/*.db
+	rm /luh/synthesis_data_snuba/${data}/example/total/validation/*.db
 	python files_spliter.py\
 		--input /luh/synthesis_data/${data}/example/total\
 		--train /luh/synthesis_data_snuba/${data}/example/total/train\
