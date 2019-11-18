@@ -99,12 +99,9 @@ except IOError:
         print("size of train:", primitives.shape)
         pickle.dump(primitives, f)    
 
-try:
-    with open("train_label_%s.pkl" % args.dataset, "rb") as f:
-        pass
-except IOError:
-    with open("train_label_%s.pkl" % args.dataset, "wb") as f:
-        pickle.dump(ground, f) 
+
+with open("train_label_%s.pkl" % args.dataset, "wb") as f:
+    pickle.dump(ground, f) 
 
 
 # assert False
@@ -170,12 +167,9 @@ except IOError:
     with open("test_feature_%s.pkl" % args.dataset, "wb") as f:
         print("size of test:", primitives.shape)
         pickle.dump(primitives, f)    
-try:
-    with open("test_label_%s.pkl" % args.dataset, "rb") as f:
-        pass
-except IOError:
-    with open("test_label_%s.pkl" % args.dataset, "wb") as f:
-        pickle.dump(ground, f)
+
+with open("test_label_%s.pkl" % args.dataset, "wb") as f:
+    pickle.dump(ground, f)
 
 
 
