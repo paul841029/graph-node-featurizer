@@ -1,13 +1,32 @@
-# rm -f *.pkl
-# for DATASET in political_table transistor
-# do
-#     for T in 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
-#     do
-#         make data=${DATASET} threshold=${T} gt_level=cell snuba_exp
-#         make data=${DATASET} threshold=${T} gt_level=cell snuba_exp
-#         make data=${DATASET} threshold=${T} gt_level=cell snuba_exp
-#     done
-# done
+rm -f *.pkl
+# make data=political_table example=1 threshold=0 gt_level=cell snuba_exp
+for DATASET in political_table president_mix transistor
+do
+    for ne in 1 3 5 7 9 11
+    do
+        for T in 0 0.1 0.2 0.3 0.4 0.5
+        do
+            make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
+            make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
+            make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
+        done
+    done
+done
+
+
+for DATASET in cdr transistor president_mix
+do
+    for ne in 1 3 5 7 9 11
+    do
+        for T in 0 0.1 0.2 0.3 0.4 0.5
+        do
+            make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
+            make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
+            make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
+        done
+    done
+done
+
 
 # for DATASET in cdr
 # do
@@ -30,15 +49,15 @@
 # done
 
 
-for DATASET in transistor president_mix
-do
-    for T in 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
-    do
-        make data=${DATASET} threshold=${T} gt_level=span snuba_exp
-        make data=${DATASET} threshold=${T} gt_level=span snuba_exp
-        make data=${DATASET} threshold=${T} gt_level=span snuba_exp
-    done
-done
+# for DATASET in transistor president_mix
+# do
+#     for T in 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
+#     do
+#         make data=${DATASET} threshold=${T} gt_level=span snuba_exp
+#         make data=${DATASET} threshold=${T} gt_level=span snuba_exp
+#         make data=${DATASET} threshold=${T} gt_level=span snuba_exp
+#     done
+# done
 
 # for DATASET in cdr
 # do

@@ -15,6 +15,7 @@ import json
 parser = argparse.ArgumentParser()
 parser.add_argument("--dataset")
 parser.add_argument("--gt")
+parser.add_argument("--example", type=int)
 args = parser.parse_args()
 
 # print(args.dataset)
@@ -92,19 +93,58 @@ for i in node_id:
 ground = np.array(ground)
 
 
+num_examples = args.example
 
 
-try:
-    with open("train_feature_%s.pkl" % args.dataset, "rb") as f:
-        pass
-except IOError:
-    with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
-        print("size of train:", primitives.shape)
-        pickle.dump(primitives, f)    
+if (num_examples > len(np.where(ground == 1)[0])):
+    num_examples = len(np.where(ground == 1)[0])
 
+    with open("results_log.csv", "a") as f:
+        f.write("\nExceed positive examples in train set. Truncate to %d" % num_examples)
 
+label_count = dict(zip(*np.unique(ground, return_counts=True)))
+
+# print(np.where(ground == 1)[0])
+# print(num_examples)
+# assert False
+
+pos = sample(np.where(ground == 1)[0], num_examples)
+neg = sample(np.where(ground == -1)[0], int(num_examples * float(label_count[-1]/label_count[1])))
+
+data_points_num = len(pos)+len(neg)
+
+cropped_primitives = np.zeros((data_points_num, primitives.shape[1]))
+ground_truth = np.zeros((data_points_num))
+
+# print(pos)
+for idx, i in enumerate(pos):
+    cropped_primitives[idx, :] = primitives[i, :]
+    ground_truth[idx] = ground[i]
+
+for idx, i in enumerate(neg):
+    cropped_primitives[idx+num_examples, :] = primitives[i, :]
+    ground_truth[idx+num_examples] = ground[i]
+
+with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
+    print("size of train:", cropped_primitives.shape)
+    pickle.dump(cropped_primitives, f)
 with open("train_label_%s.pkl" % args.dataset, "wb") as f:
-    pickle.dump(ground, f) 
+    pickle.dump(ground_truth, f)
+
+# print(dict(zip(*np.unique(ground_truth, return_counts=True))))
+# assert False
+
+# try:
+#     with open("train_feature_%s.pkl" % args.dataset, "rb") as f:
+#         pass
+# except IOError:
+#     with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
+#         print("size of train:", primitives.shape)
+#         pickle.dump(primitives, f)    
+
+
+# with open("train_label_%s.pkl" % args.dataset, "wb") as f:
+#     pickle.dump(ground, f) 
 
 
 # assert False
