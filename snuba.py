@@ -30,7 +30,7 @@ import time
 parser = argparse.ArgumentParser()
 parser.add_argument("--dataset")
 parser.add_argument("--gt_level")
-parser.add_argument("--threshold", type=float)
+# parser.add_argument("--threshold", type=float)
 args = parser.parse_args()
 
 with open("train_feature_%s.pkl" % args.dataset, "rb") as f:
@@ -63,15 +63,18 @@ for _ in range(0, 10):
     idx = hg.feedback_idx
     if idx == []:
         break
-_, _, _, _, (prec, recall, f1) = hg.evaluate(args.threshold)
 
 unique, counts = np.unique(train_label, return_counts=True)
 num_count = dict(zip(unique, counts))
 
-with open("results_log.csv", "a") as f:
-    f.write(
-        "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, num_count[1], num_count[-1], args.threshold, args.gt_level, time.time() - start_time)
-        )
+for t in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
+
+    _, _, _, _, (prec, recall, f1) = hg.evaluate(t)
+
+    with open("results_log.csv", "a") as f:
+        f.write(
+            "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, num_count[1], num_count[-1], t, args.gt_level, time.time() - start_time)
+            )
 
 # clf = RandomForestRegressor(n_estimators=10, max_depth=2,
 #                              random_state=0)

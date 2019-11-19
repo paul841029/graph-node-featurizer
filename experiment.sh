@@ -4,12 +4,9 @@ for DATASET in political_table president_mix transistor
 do
     for ne in 1 3 5 7 9 11
     do
-        for T in 0 0.1 0.2 0.3 0.4 0.5
-        do
-            make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
-            make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
-            make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
-        done
+        make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
+        make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
+        make data=${DATASET} example=${ne} threshold=${T} gt_level=cell snuba_exp
     done
 done
 
@@ -18,12 +15,9 @@ for DATASET in cdr transistor president_mix
 do
     for ne in 1 3 5 7 9 11
     do
-        for T in 0 0.1 0.2 0.3 0.4 0.5
-        do
-            make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
-            make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
-            make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
-        done
+        make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
+        make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
+        make data=${DATASET} example=${ne} threshold=${T} gt_level=span snuba_exp
     done
 done
 

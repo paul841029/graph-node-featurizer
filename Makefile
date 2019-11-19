@@ -5,8 +5,7 @@ snuba_exp:
 		--example ${example}
 	python snuba.py\
 		--dataset ${data}\
-		--gt ${gt_level}\
-		--threshold ${threshold}
+		--gt ${gt_level}
 
 .PHONY: split_files
 split_files:
