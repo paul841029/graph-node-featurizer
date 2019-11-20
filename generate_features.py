@@ -128,7 +128,7 @@ else:
             idx, = np.where(node_id == i_j)[0]
             pos.append(idx)
 
-    neg = sample(np.where(ground == -1)[0], int(num_examples * float(label_count[-1]/len(list_of_pos_examples))))
+    neg = sample(np.where(ground == -1)[0], int(num_examples * 10))
 
     data_points_num = len(pos)+len(neg)
 
