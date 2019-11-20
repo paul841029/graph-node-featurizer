@@ -30,6 +30,7 @@ import time
 parser = argparse.ArgumentParser()
 parser.add_argument("--dataset")
 parser.add_argument("--gt_level")
+parser.add_argument("--example", type=int)
 # parser.add_argument("--threshold", type=float)
 args = parser.parse_args()
 
@@ -66,6 +67,7 @@ for _ in range(0, 10):
 
 unique, counts = np.unique(train_label, return_counts=True)
 num_count = dict(zip(unique, counts))
+pos_num = args.example if args.example is not -1 else num_count[1]
 
 for t in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
 
@@ -73,7 +75,7 @@ for t in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
 
     with open("results_log.csv", "a") as f:
         f.write(
-            "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, num_count[1], num_count[-1], t, args.gt_level, time.time() - start_time)
+            "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, args.example, num_count[-1], t, args.gt_level, time.time() - start_time)
             )
 
 # clf = RandomForestRegressor(n_estimators=10, max_depth=2,

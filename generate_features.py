@@ -50,12 +50,13 @@ with open("/luh/synthesis_data_snuba/ground_truth/cell/%s.json" % args.dataset, 
 
 with open("/luh/synthesis_data_snuba/ground_truth/span/%s.json" % args.dataset, 'r') as f:
     gt_id_span = set()
-    for i in json.load(f):
+    gt_id_span_group = json.load(f)
+    for i in gt_id_span_group:
         for j in i['example']:
             gt_id_span.add(j)
 
 
-gt_id_val = gt_id_cell+gt_id_span
+gt_id_val = gt_id_cell | gt_id_span
 
 
 
@@ -80,7 +81,7 @@ def get_train_primitives_ground_truth_without_samplimg():
  
         docs = []
 
-        for idx, f in enumerate(os.listdir(train_folder)[:3]):
+        for idx, f in enumerate(os.listdir(train_folder)):
 
             path = os.path.join(train_folder, f)
             
@@ -99,10 +100,11 @@ def get_train_primitives_ground_truth_without_samplimg():
             start = end
 
             doc = Document(f)
+            doc.add_pos_span(gt_id_span_group)
             
             for node_id_single in i:
                 if node_id_single in gt_id_val:
-                    doc.add_to_pos(node_id, gt_id_cell, gt_id_span)
+                    doc.add_to_pos(node_id_single, gt_id_cell, gt_id_span)
                 else:
                     doc.add_to_neg(node_id_single)
             
@@ -128,14 +130,10 @@ def get_train_primitives_ground_truth_without_samplimg():
 
 
 if args.example == -1:
-    primitives, ground _, _ = get_train_primitives_ground_truth_without_samplimg()
-    try:
-        with open("train_feature_%s.pkl" % args.dataset, "rb") as f:
-            pass
-    except IOError:
-        with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
-            print("size of train:", primitives.shape)
-            pickle.dump(primitives, f)    
+    primitives, ground, _, _ = get_train_primitives_ground_truth_without_samplimg()
+    with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
+        print("size of train:", primitives.shape)
+        pickle.dump(primitives, f)    
 
     with open("train_label_%s.pkl" % args.dataset, "wb") as f:
         pickle.dump(ground, f)
@@ -150,11 +148,11 @@ else:
         selected_id |= neg
     
     cropped_primitives = np.zeros((len(selected_id), primitives.shape[1]))
-    cropped_ground = np.zeros((len(selected_id,)))
+    cropped_ground = np.zeros((len(selected_id),))
 
     for i, v in enumerate(selected_id):
-        idx, = np.where(node_id == i)
-        cropped_primitives[i:] = primitives[idx:]
+        idx, = np.where(node_id == v)[0]
+        cropped_primitives[i, :] = primitives[idx, :]
         cropped_ground[i] = ground[idx]
     
     with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
@@ -180,7 +178,7 @@ try:
         node_id = pickle.load(f)
 
 except IOError:
-    for idx, f in enumerate(os.listdir(test_folder)[:3]):
+    for idx, f in enumerate(os.listdir(test_folder)):
 
         path = os.path.join(test_folder, f)
         
