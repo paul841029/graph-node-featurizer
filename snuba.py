@@ -44,7 +44,11 @@ with open("test_feature_%s.pkl" % args.dataset, "rb") as f:
     test_primitive = pickle.load(f)
 
 with open("test_label_%s.pkl" % args.dataset, "rb") as f:
-    test_label = pickle.load(f) 
+    test_label = pickle.load(f)
+
+if args.example == -1:
+    with open("num_pos_example_%s.pkl" % args.dataset, "rb") as f:
+        pos_example_count = pickle.load(f)
 
 # with open("val_feature_%s.pkl" % args.dataset, "rb") as f:
 #     ml_val_primitive = pickle.load(f)
@@ -67,7 +71,7 @@ for _ in range(0, 10):
 
 unique, counts = np.unique(train_label, return_counts=True)
 num_count = dict(zip(unique, counts))
-pos_num = args.example if args.example is not -1 else num_count[1]
+pos_num = 2 * args.example if args.example is not -1 else pos_example_count
 
 for t in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
 
@@ -75,7 +79,7 @@ for t in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
 
     with open("results_log.csv", "a") as f:
         f.write(
-            "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, args.example, num_count[-1], t, args.gt_level, time.time() - start_time)
+            "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, pos_num, num_count[-1], t, args.gt_level, time.time() - start_time)
             )
 
 # clf = RandomForestRegressor(n_estimators=10, max_depth=2,

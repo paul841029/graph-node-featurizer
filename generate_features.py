@@ -137,6 +137,14 @@ if args.example == -1:
 
     with open("train_label_%s.pkl" % args.dataset, "wb") as f:
         pickle.dump(ground, f)
+    
+    with open("num_pos_example_%s.pkl" % args.dataset, "wb") as f:
+        
+        count = 0
+        for d in docs:
+            count += len(d.pos)
+        
+        pickle.dump(count, f)
 
 else:
     primitives, ground, docs, node_id = get_train_primitives_ground_truth_without_samplimg()
@@ -157,10 +165,10 @@ else:
     
     with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
         print("size of train:", primitives.shape)
-        pickle.dump(primitives, f)
+        pickle.dump(cropped_primitives, f)
 
     with open("train_label_%s.pkl" % args.dataset, "wb") as f:
-        pickle.dump(ground, f)
+        pickle.dump(cropped_ground, f)
 
 # assert False
 
