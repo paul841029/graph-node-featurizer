@@ -4,12 +4,12 @@ rm *feature*.pkl
 
 # make data=political_table example=1 threshold=0 gt_level=cell snuba_exp
 
-for DATASET in president_mix transistor
-do
-    make data=${DATASET} example=-1 snuba_exp
-    make data=${DATASET} example=-1 snuba_exp
-    make data=${DATASET} example=-1 snuba_exp
-done
+# for DATASET in president_mix transistor
+# do
+#     make data=${DATASET} example=-1 snuba_exp
+#     make data=${DATASET} example=-1 snuba_exp
+#     make data=${DATASET} example=-1 snuba_exp
+# done
 
 for DATASET in president_mix transistor
 do
