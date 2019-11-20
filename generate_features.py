@@ -74,11 +74,11 @@ except IOError:
         pickle.dump(node_id, f)
 
 with open(args.gt, 'r') as f:
-    gt_id = json.load(f)
+    gt_obj = json.load(f)
 
 gt_id_val = []
 
-for s in gt_id:
+for s in gt_obj:
     for i in s['example']:
         gt_id_val.append(i)
 
@@ -95,9 +95,15 @@ ground = np.array(ground)
 
 num_examples = args.example
 
+list_of_pos_examples = []
 
-if (num_examples > len(np.where(ground == 1)[0])):
-    num_examples = len(np.where(ground == 1)[0])
+for n in gt_obj:
+	if n['file'].split('/')[-1] in set(os.listdir(train_folder)):
+		list_of_pos_examples.append(n['example'])
+
+
+if (num_examples > len(list_of_pos_examples)):
+    num_examples = len(list_of_pos_examples)
 
     with open("results_log.csv", "a") as f:
         f.write("\nExceed positive examples in train set. Truncate to %d" % num_examples)
@@ -107,9 +113,15 @@ label_count = dict(zip(*np.unique(ground, return_counts=True)))
 # print(np.where(ground == 1)[0])
 # print(num_examples)
 # assert False
+pos = []
+for i in sample(list_of_pos_examples, num_examples):
+	for i_j in i:
+		idx, = np.where(node_id == i_j)[0]
 
-pos = sample(np.where(ground == 1)[0], num_examples)
-neg = sample(np.where(ground == -1)[0], int(num_examples * float(label_count[-1]/label_count[1])))
+		# print(idx)
+		pos.append(idx)
+
+neg = sample(np.where(ground == -1)[0], int(num_examples * float(label_count[-1]/len(list_of_pos_examples))))
 
 data_points_num = len(pos)+len(neg)
 
@@ -189,7 +201,7 @@ except IOError:
 
 gt_id_val = []
 
-for s in gt_id:
+for s in gt_obj:
     for i in s['example']:
         gt_id_val.append(i)
 
