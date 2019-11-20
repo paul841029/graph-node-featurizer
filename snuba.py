@@ -46,9 +46,9 @@ with open("test_feature_%s.pkl" % args.dataset, "rb") as f:
 with open("test_label_%s.pkl" % args.dataset, "rb") as f:
     test_label = pickle.load(f)
 
-if args.example == -1:
-    with open("num_pos_example_%s.pkl" % args.dataset, "rb") as f:
-        pos_example_count = pickle.load(f)
+
+with open("num_pos_example_%s.pkl" % args.dataset, "rb") as f:
+    pos_example_count = pickle.load(f)
 
 # with open("val_feature_%s.pkl" % args.dataset, "rb") as f:
 #     ml_val_primitive = pickle.load(f)
@@ -71,7 +71,7 @@ for _ in range(0, 10):
 
 unique, counts = np.unique(train_label, return_counts=True)
 num_count = dict(zip(unique, counts))
-pos_num = 2 * args.example if args.example is not -1 else pos_example_count
+pos_num = pos_example_count
 
 for t in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
 

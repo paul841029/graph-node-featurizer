@@ -150,10 +150,16 @@ else:
     primitives, ground, docs, node_id = get_train_primitives_ground_truth_without_samplimg()
 
     selected_id = set()
+    t_num = 0
     for d_i in sample(docs, args.example):
-        pos, neg = d_i.get_sample()
+        pos, neg, num = d_i.get_sample()
         selected_id |= pos
         selected_id |= neg
+        t_num += num
+    
+    with open("num_pos_example_%s.pkl" % args.dataset, "wb") as f:
+        pickle.dump(t_num, f)
+    
     
     cropped_primitives = np.zeros((len(selected_id), primitives.shape[1]))
     cropped_ground = np.zeros((len(selected_id),))

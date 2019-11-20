@@ -24,24 +24,30 @@ class Document(object):
         self.neg.add(i)
     
     def get_sample(self):
+        num = 0
         if len(self.pos.cell) > 0:
             cell_id = sample(self.pos.cell, 1)
+            num += 1
         else:
             cell_id = []
         
         if len(self.pos.span) > 0:
             span_id = sample(self.pos.span, 1)[0]
+            num += 1
         else:
             span_id = []
         
         pos = span_id + cell_id
 
-        num_neg = 2 * int(len(self.neg)/len(self.pos))
+        try:
+            num_neg = 2 * int(len(self.neg)/len(self.pos))
+        except:
+            num_neg = 0
 
         if num_neg > len(self.neg):
             num_neg = len(self.neg)
 
-        return set(pos), set(sample(self.neg, num_neg))
+        return set(pos), set(sample(self.neg, num_neg)), num
 
 
 class Positive(object):
