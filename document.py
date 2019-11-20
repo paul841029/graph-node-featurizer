@@ -40,7 +40,7 @@ class Document(object):
         pos = span_id + cell_id
 
         try:
-            num_neg = num * 10
+            num_neg = num * int(len(self.neg)/len(self.pos))
         except:
             num_neg = 0
 
