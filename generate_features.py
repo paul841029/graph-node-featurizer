@@ -113,35 +113,42 @@ label_count = dict(zip(*np.unique(ground, return_counts=True)))
 # print(np.where(ground == 1)[0])
 # print(num_examples)
 # assert False
-pos = []
-for i in sample(list_of_pos_examples, num_examples):
-	for i_j in i:
-		idx, = np.where(node_id == i_j)[0]
+if args.example == -1:
+    with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
+        print("size of train:", primitives.shape)
+        pickle.dump(primitives, f)
+    with open("train_label_%s.pkl" % args.dataset, "wb") as f:
+        pickle.dump(ground, f)
+    with open("num_pos_example_%s.pkl" % args.dataset, "wb") as f:
+        pickle.dump(len(list_of_pos_examples), f)
+else:
+    pos = []
+    for i in sample(list_of_pos_examples, num_examples):
+        for i_j in i:
+            idx, = np.where(node_id == i_j)[0]
+            pos.append(idx)
 
-		# print(idx)
-		pos.append(idx)
+    neg = sample(np.where(ground == -1)[0], int(num_examples * float(label_count[-1]/len(list_of_pos_examples))))
 
-neg = sample(np.where(ground == -1)[0], int(num_examples * float(label_count[-1]/len(list_of_pos_examples))))
+    data_points_num = len(pos)+len(neg)
 
-data_points_num = len(pos)+len(neg)
+    cropped_primitives = np.zeros((data_points_num, primitives.shape[1]))
+    ground_truth = np.zeros((data_points_num))
 
-cropped_primitives = np.zeros((data_points_num, primitives.shape[1]))
-ground_truth = np.zeros((data_points_num))
+    # print(pos)
+    for idx, i in enumerate(pos):
+        cropped_primitives[idx, :] = primitives[i, :]
+        ground_truth[idx] = ground[i]
 
-# print(pos)
-for idx, i in enumerate(pos):
-    cropped_primitives[idx, :] = primitives[i, :]
-    ground_truth[idx] = ground[i]
+    for idx, i in enumerate(neg):
+        cropped_primitives[idx+num_examples, :] = primitives[i, :]
+        ground_truth[idx+num_examples] = ground[i]
 
-for idx, i in enumerate(neg):
-    cropped_primitives[idx+num_examples, :] = primitives[i, :]
-    ground_truth[idx+num_examples] = ground[i]
-
-with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
-    print("size of train:", cropped_primitives.shape)
-    pickle.dump(cropped_primitives, f)
-with open("train_label_%s.pkl" % args.dataset, "wb") as f:
-    pickle.dump(ground_truth, f)
+    with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
+        print("size of train:", cropped_primitives.shape)
+        pickle.dump(cropped_primitives, f)
+    with open("train_label_%s.pkl" % args.dataset, "wb") as f:
+        pickle.dump(ground_truth, f)
 
 # print(dict(zip(*np.unique(ground_truth, return_counts=True))))
 # assert False

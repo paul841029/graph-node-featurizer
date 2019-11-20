@@ -44,7 +44,12 @@ with open("test_feature_%s.pkl" % args.dataset, "rb") as f:
     test_primitive = pickle.load(f)
 
 with open("test_label_%s.pkl" % args.dataset, "rb") as f:
-    test_label = pickle.load(f) 
+    test_label = pickle.load(f)
+
+num_pos_example = -1
+if args.example == -1:
+    with open("num_pos_example_%s.pkl" % args.dataset, "rb") as f:
+        num_pos_example = pickle.load(f) 
 
 # with open("val_feature_%s.pkl" % args.dataset, "rb") as f:
 #     ml_val_primitive = pickle.load(f)
@@ -68,13 +73,15 @@ for _ in range(0, 10):
 unique, counts = np.unique(train_label, return_counts=True)
 num_count = dict(zip(unique, counts))
 
+p_example = args.example if args.example is not -1 else num_pos_example
+
 for t in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
 
     _, _, _, _, (prec, recall, f1) = hg.evaluate(t)
 
     with open("results_log.csv", "a") as f:
         f.write(
-            "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, args.example, num_count[-1], t, args.gt_level, time.time() - start_time)
+            "\n%s,%f,%f,%f,%d,%d,%f,%s,%f" % (args.dataset, prec, recall, f1, p_example, num_count[-1], t, args.gt_level, time.time() - start_time)
             )
 
 # clf = RandomForestRegressor(n_estimators=10, max_depth=2,

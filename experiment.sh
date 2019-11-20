@@ -2,7 +2,7 @@ rm -f *.pkl
 # make data=political_table example=1 threshold=0 gt_level=cell snuba_exp
 for DATASET in political_table president_mix transistor
 do
-    for ne in 1 3 5 7 9 11
+    for ne in -1 1 3 5 7 9 11
     do
         make data=${DATASET} example=${ne} gt_level=cell snuba_exp
         make data=${DATASET} example=${ne} gt_level=cell snuba_exp
@@ -13,7 +13,7 @@ done
 
 for DATASET in cdr transistor president_mix
 do
-    for ne in 1 3 5 7 9 11
+    for ne in -1 1 3 5 7 9 11
     do
         make data=${DATASET} example=${ne} gt_level=span snuba_exp
         make data=${DATASET} example=${ne} gt_level=span snuba_exp
