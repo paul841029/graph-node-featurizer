@@ -24,12 +24,22 @@ class Document(object):
         self.neg.add(i)
     
     def get_sample(self):
-        cell_id = sample(self.pos.cell, 1)[0]
-        span_id = sample(self.pos.span, 1)[0]
+        if len(self.pos.cell) > 0:
+            cell_id = sample(self.pos.cell, 1)
+        else:
+            cell_id = []
         
-        pos = span_id + [cell_id]
+        if len(self.pos.span) > 0:
+            span_id = sample(self.pos.span, 1)[0]
+        else:
+            span_id = []
+        
+        pos = span_id + cell_id
 
         num_neg = 2 * int(len(self.neg)/len(self.pos))
+
+        if num_neg > len(self.neg):
+            num_neg = len(self.neg)
 
         return set(pos), set(sample(self.neg, num_neg))
 

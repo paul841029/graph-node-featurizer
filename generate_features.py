@@ -130,7 +130,7 @@ def get_train_primitives_ground_truth_without_samplimg():
 
 
 if args.example == -1:
-    primitives, ground, _, _ = get_train_primitives_ground_truth_without_samplimg()
+    primitives, ground, docs, _ = get_train_primitives_ground_truth_without_samplimg()
     with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
         print("size of train:", primitives.shape)
         pickle.dump(primitives, f)    
@@ -164,7 +164,7 @@ else:
         cropped_ground[i] = ground[idx]
     
     with open("train_feature_%s.pkl" % args.dataset, "wb") as f:
-        print("size of train:", primitives.shape)
+        print("size of train:", cropped_primitives.shape)
         pickle.dump(cropped_primitives, f)
 
     with open("train_label_%s.pkl" % args.dataset, "wb") as f:

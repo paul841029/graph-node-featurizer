@@ -1,4 +1,6 @@
-rm -f *.pkl
+# rm -f *.pkl
+rm *label*.pkl
+rm *feature*.pkl
 
 # make data=political_table example=1 threshold=0 gt_level=cell snuba_exp
 
