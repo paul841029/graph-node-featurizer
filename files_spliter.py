@@ -1,4 +1,4 @@
-raise RuntimeError("ARE YOU SURE?")
+# raise RuntimeError("ARE YOU SURE?")
 from sklearn.model_selection import train_test_split
 import argparse
 import subprocess
@@ -16,8 +16,8 @@ args = parser.parse_args()
 # subprocess.call(["rm", "-rf", "%s" % args.test])
 # subprocess.call(["rm", "-rf", "%s" % args.val])
 
-subprocess.call(["mkdir", "%s" % args.train])
-subprocess.call(["mkdir", "%s" % args.test])
+subprocess.call(["mkdir", "-p", "%s" % args.train])
+subprocess.call(["mkdir", "-p", "%s" % args.test])
 # subprocess.call(["mkdir", "%s" % args.val])
 
 
