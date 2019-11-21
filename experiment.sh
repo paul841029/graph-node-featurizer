@@ -12,7 +12,7 @@ rm -f *label*.pkl
 # done
 
 
-for DATASET in politician-text-pob politician-text-dob
+for DATASET in political-text-pob political-text-dob
 do
     for ne in -1 1 3 5 7 9 11
     do
