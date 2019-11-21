@@ -16,6 +16,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--dataset")
 parser.add_argument("--gt")
 parser.add_argument("--example", type=int)
+parser.add_argument("--ratio", type=int)
 args = parser.parse_args()
 
 # print(args.dataset)
@@ -128,7 +129,8 @@ else:
             idx, = np.where(node_id == i_j)[0]
             pos.append(idx)
 
-    neg = sample(np.where(ground == -1)[0], int(num_examples * 10))
+    
+    neg = sample(np.where(ground == -1)[0], int(num_examples * args.ratio))
 
     data_points_num = len(pos)+len(neg)
 
