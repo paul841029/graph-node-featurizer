@@ -2,7 +2,7 @@ snuba_exp:
 	python generate_features.py\
 		--dataset ${data}\
 		--gt /luh/synthesis_data_snuba/ground_truth/${gt_level}/${data}.json\
-		--example ${example}
+		--example ${example}\
 		--ratio ${ratio}
 	python snuba.py\
 		--dataset ${data}\

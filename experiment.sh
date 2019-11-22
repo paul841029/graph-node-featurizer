@@ -1,34 +1,36 @@
-rm -f *.pkl
+rm -f *feature*.pkl
+rm -f *label*.pkl
 
 # make data=political_table example=1 threshold=0 gt_level=cell snuba_exp
-for DATASET in political_table president_mix transistor
+
+# for DATASET in political-text-pob
+# do
+#     for ne in -1 1 3 5 7 9 11
+#     do
+#         make data=${DATASET} example=${ne} gt_level=span ratio=10 snuba_exp
+#         make data=${DATASET} example=${ne} gt_level=span ratio=10 snuba_exp
+#         make data=${DATASET} example=${ne} gt_level=span ratio=10 snuba_exp
+#     done
+# done
+
+# for DATASET in political-text-pob
+# do
+#     for ne in 1 3 5 7 9 11
+#     do
+#         make data=${DATASET} example=${ne} gt_level=span ratio=1 snuba_exp
+#         make data=${DATASET} example=${ne} gt_level=span ratio=1 snuba_exp
+#         make data=${DATASET} example=${ne} gt_level=span ratio=1 snuba_exp
+#     done
+# done
+
+
+for DATASET in cdr-chm cdr-dis
 do
     for ne in 1 3 5 7 9 11
     do
         make data=${DATASET} example=${ne} gt_level=cell ratio=1 snuba_exp
         make data=${DATASET} example=${ne} gt_level=cell ratio=1 snuba_exp
         make data=${DATASET} example=${ne} gt_level=cell ratio=1 snuba_exp
-    done
-done
-
-
-for DATASET in political-text-pob
-do
-    for ne in -1 1 3 5 7 9 11
-    do
-        make data=${DATASET} example=${ne} gt_level=span ratio=10 snuba_exp
-        make data=${DATASET} example=${ne} gt_level=span ratio=10 snuba_exp
-        make data=${DATASET} example=${ne} gt_level=span ratio=10 snuba_exp
-    done
-done
-
-for DATASET in political-text-pob
-do
-    for ne in 1 3 5 7 9 11
-    do
-        make data=${DATASET} example=${ne} gt_level=span ratio=1 snuba_exp
-        make data=${DATASET} example=${ne} gt_level=span ratio=1 snuba_exp
-        make data=${DATASET} example=${ne} gt_level=span ratio=1 snuba_exp
     done
 done
 
