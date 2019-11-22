@@ -24,13 +24,13 @@ rm -f *label*.pkl
 # done
 
 
-for DATASET in cdr-chm cdr-dis
+for DATASET in transistor
 do
     for ne in 1 3 5 7 9 11
     do
-        make data=${DATASET} example=${ne} gt_level=cell ratio=1 snuba_exp
-        make data=${DATASET} example=${ne} gt_level=cell ratio=1 snuba_exp
-        make data=${DATASET} example=${ne} gt_level=cell ratio=1 snuba_exp
+        make data=${DATASET} example=${ne} gt_level=cell ratio=10 snuba_exp
+        make data=${DATASET} example=${ne} gt_level=cell ratio=10 snuba_exp
+        make data=${DATASET} example=${ne} gt_level=cell ratio=10 snuba_exp
     done
 done
 
