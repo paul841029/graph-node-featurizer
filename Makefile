@@ -1,7 +1,8 @@
 snuba_exp:
 	python generate_features.py\
 		--dataset ${data}\
-		--example ${example}
+		--example ${example}\
+		--rate ${rate}
 	python snuba.py\
 		--dataset ${data}\
 		--gt mix\

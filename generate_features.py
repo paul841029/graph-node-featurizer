@@ -18,6 +18,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--dataset")
 parser.add_argument("--gt")
 parser.add_argument("--example", type=int)
+parser.add_argument("--rate", type=int)
 args = parser.parse_args()
 
 # print(args.dataset)
@@ -152,7 +153,7 @@ else:
     selected_id = set()
     t_num = 0
     for d_i in sample(docs, args.example):
-        pos, neg, num = d_i.get_sample()
+        pos, neg, num = d_i.get_sample(args.rate)
         selected_id |= pos
         selected_id |= neg
         t_num += num

@@ -15,11 +15,22 @@ for DATASET in president_mix transistor
 do
     for ne in 1 3 5 7 9 11
     do
-        make data=${DATASET} example=${ne} snuba_exp
-        make data=${DATASET} example=${ne} snuba_exp
-        make data=${DATASET} example=${ne} snuba_exp
+        make data=${DATASET} example=${ne} rate=1 snuba_exp
+        make data=${DATASET} example=${ne} rate=1 snuba_exp
+        make data=${DATASET} example=${ne} rate=1 snuba_exp
     done
 done
+
+for DATASET in president_mix transistor
+do
+    for ne in -1 1 3 5 7 9 11
+    do
+        make data=${DATASET} example=${ne} rate=10 snuba_exp
+        make data=${DATASET} example=${ne} rate=10 snuba_exp
+        make data=${DATASET} example=${ne} rate=10 snuba_exp
+    done
+done
+
 
 
 # for DATASET in cdr transistor president_mix

@@ -23,7 +23,7 @@ class Document(object):
     def add_to_neg(self, i):
         self.neg.add(i)
     
-    def get_sample(self):
+    def get_sample(self, rate):
         num = 0
         if len(self.pos.cell) > 0:
             cell_id = sample(self.pos.cell, 1)
@@ -40,7 +40,7 @@ class Document(object):
         pos = span_id + cell_id
 
         try:
-            num_neg = num * int(len(self.neg)/len(self.pos))
+            num_neg = num * rate
         except:
             num_neg = 0
 
